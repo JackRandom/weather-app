@@ -20,6 +20,13 @@ App.propTypes={
 }
 export default App;
 
+
+
+
+
+
+
+
 // import logo from './logo.svg';
 // import './App.css';
 // import LocationDetails from './components/location-details';
