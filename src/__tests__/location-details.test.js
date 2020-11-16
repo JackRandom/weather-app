@@ -7,5 +7,5 @@ it('renders the correct city and location props', () => {
         <LocationDetails city="Manchester" country="UK" />
       );
       
-      expect(getByText("Manchester, UK")).toBeTruthy();
+      expect(getByText("Manchester, UK")).toHaveClass("location-details");
 });
