@@ -1,8 +1,9 @@
 // import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import LocationDetails from './components/location-details';
 import ForecastSummaries from './components/forecast-summaries';
 import ForecastSummary from './components/forecastSummary';
+import './styles/app.css';
 import PropTypes from 'prop-types';
 
 

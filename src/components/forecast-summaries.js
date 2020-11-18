@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ForecastSummary from './forecastSummary';
+import '../styles/forecast-summaries.css';
 
 const ForecastSummaries = (props) => (
 <div className="forecast-summaries">
     {
     props.forecasts.map(forecast => (
         <ForecastSummary
+        key={forecast.date}
         date={forecast.date}
         description={forecast.description}
         icon={forecast.icon}
@@ -20,4 +22,5 @@ const ForecastSummaries = (props) => (
 ForecastSummaries.propTypes = {
     forecasts: PropTypes.array.isRequired,
 };
+
 export default ForecastSummaries;
