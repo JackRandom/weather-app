@@ -1,21 +1,22 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import ForecastSummaries from "../../components/forecast-summaries";
+import ForecastSummaries from "../components/forecast-summaries";
 
 describe("ForecastSummaries", () => {
   const forecasts = [
     {
       date: 123,
       description: "date1",
-      icon: "icon1",
+      icon: "211",
       temperature: {
         max: 999,
       },
+    
     },
     {
       date: 456,
       description: "date2",
-      icon: "icon2",
+      icon: "800",
       temperature: {
         max: 777,
       },
@@ -23,14 +24,14 @@ describe("ForecastSummaries", () => {
   ];
 
   it("renders the correct amount of ForecastSummary components", () => {
-    const { asFragment } = render(<ForecastSummaries forecasts={forecasts} />);
+    const { asFragment } = render(<ForecastSummaries forecasts={forecasts} handleForecastSelect={() => {}} />);
 
     expect(asFragment).toMatchSnapshot();
   });
 
   it("renders the correct amount of ForecastSummary component props", () => {
     const { getAllByTestId } = render(
-      <ForecastSummaries forecasts={forecasts} />
+      <ForecastSummaries forecasts={forecasts} handleForecastSelect={() => {}} />
     );
 
     expect(getAllByTestId("date-id")).toHaveLength(2);
