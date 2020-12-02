@@ -1,28 +1,43 @@
+import React, { useEffect, useState } from "react";
+import getLocation from "./requests/getLocation";
 import LocationDetails from "./components/location-details";
 import ForecastSummaries from "./components/forecast-summaries";
 import ForecastDetails from "./components/ForecastDetails";
 // import ForecastSummary from './components/forecastSummary';
 import "./styles/app.css";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
 
 const App = () => {
-  const [selectedDate, setSelectedDate] = useState(0);
-
+  const [selectedDate, setSelectedDate] = useState("");
   const [forecasts, setForecasts] = useState([]);
-
   const [location, setLocation] = useState({
     city: "",
-    country: "",
   });
+  const [city, setCity] = useState({ city: "Manchester" });
 
-  const selectedForecast = forecasts.find(
-    (forecast) => forecast.date === selectedDate
-  );
+  useEffect(() => {
+    getLocation(location, setForecasts, setLocation);
+  }, [location.city]);
 
-  const handleForecastSelect = (date) => {
-    setSelectedDate(0);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLocation(city);
   };
+
+  const handleChange = (e) => {
+    setCity({
+      ...city,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // const selectedForecast = forecasts.find(
+  //   (forecast) => forecast.date === selectedDate
+  // );
+
+  // const handleForecastSelect = (date) => {
+  //   setSelectedDate();
+  // };
 
   return (
     <div className="forecast">
@@ -31,12 +46,24 @@ const App = () => {
         country={location.country} //.country might need taken out
       />
 
-      <ForecastSummaries
-        forecasts={forecasts}
-        handleForecastSelect={handleForecastSelect}
-      />
+      {forecasts && forecasts.length && (
+        <ForecastSummaries
+          forecasts={forecasts}
+          // handleForecastSelect={handleForecastSelect}
+        />
+      )}
 
-      {selectedForecast && <ForecastDetails forecast={selectedForecast} />}
+      <form type="submit" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="city"
+          value={city.city}
+          onChange={handleChange}
+        />
+        <button type="submit">Search</button>
+      </form>
+
+      {/* {selectedForecast && <ForecastDetails forecast={selectedForecast} />} */}
     </div>
   );
 };
