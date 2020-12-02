@@ -1,45 +1,51 @@
-import LocationDetails from './components/location-details';
-import ForecastSummaries from './components/forecast-summaries';
-import ForecastDetails from './components/ForecastDetails';
+import LocationDetails from "./components/location-details";
+import ForecastSummaries from "./components/forecast-summaries";
+import ForecastDetails from "./components/ForecastDetails";
 // import ForecastSummary from './components/forecastSummary';
-import './styles/app.css';
-import PropTypes from 'prop-types';
+import "./styles/app.css";
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 
+const App = () => {
+  const [selectedDate, setSelectedDate] = useState(0);
 
-const App = (props) => {
-    
-    const [selectedDate, setSelectedDate] = useState
-    (props.forecasts[0].date);
+  const [forecasts, setForecasts] = useState([]);
 
-    const selectedForecast = props.forecasts.find
-    (forecast => forecast.date === selectedDate);
+  const [location, setLocation] = useState({
+    city: "",
+    country: "",
+  });
 
-    const handleForecastSelect = (date) => {
-        setSelectedDate(date);
-      };
+  const selectedForecast = forecasts.find(
+    (forecast) => forecast.date === selectedDate
+  );
 
-    return (
+  const handleForecastSelect = (date) => {
+    setSelectedDate(0);
+  };
+
+  return (
     <div className="forecast">
-        <LocationDetails
-            city={props.location.city}
-            country={props.location.country}
-        />
+      <LocationDetails
+        city={location.city} //.city might need taken out
+        country={location.country} //.country might need taken out
+      />
 
-        <ForecastSummaries forecasts={props.forecasts}
-        handleForecastSelect={handleForecastSelect} />
+      <ForecastSummaries
+        forecasts={forecasts}
+        handleForecastSelect={handleForecastSelect}
+      />
 
-        <ForecastDetails forecast={selectedForecast} />
+      {selectedForecast && <ForecastDetails forecast={selectedForecast} />}
     </div>
-    )
-}
+  );
+};
 
-App.propTypes={
-    location: PropTypes.shape({
-        city: PropTypes.string,
-        country: PropTypes.string,
-    }).isRequired,
-    forecasts: PropTypes.array.isRequired,
-}
+App.propTypes = {
+  location: PropTypes.shape({
+    city: PropTypes.string,
+    country: PropTypes.string,
+  }).isRequired,
+  forecasts: PropTypes.array.isRequired,
+};
 export default App;
-
