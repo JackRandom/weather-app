@@ -7,50 +7,39 @@ import PropTypes from 'prop-types';
 import React, { useState } from "react";
 
 
-const App() => {
+const App = (props) => {
     
     const [selectedDate, setSelectedDate] = useState
-    (0);
+    (props.forecasts[0].date);
 
-    const [forecasts, setForecasts] = useState([]);
-
-    const [location, setLocation] = useState({
-            city:'', 
-            country:''
-        });
-
-    const selectedForecast = forecasts.find
+    const selectedForecast = props.forecasts.find
     (forecast => forecast.date === selectedDate);
 
     const handleForecastSelect = (date) => {
-        setSelectedDate(0);
+        setSelectedDate(date);
       };
-
-    
 
     return (
     <div className="forecast">
         <LocationDetails
-            city={location.city} //.city might need taken out
-            country={location.country} //.country might need taken out
+            city={props.location.city}
+            country={props.location.country}
         />
 
-        <ForecastSummaries forecasts={forecasts}
+        <ForecastSummaries forecasts={props.forecasts}
         handleForecastSelect={handleForecastSelect} />
 
-        {
-            selectedForecast && (<ForecastDetails forecast={selectedForecast} />)
-        }
+        <ForecastDetails forecast={selectedForecast} />
     </div>
     )
 }
 
-// App.propTypes={
-//     location: PropTypes.shape({
-//         city: PropTypes.string,
-//         country: PropTypes.string,
-//     }).isRequired,
-//     forecasts: PropTypes.array.isRequired,
-// }
+App.propTypes={
+    location: PropTypes.shape({
+        city: PropTypes.string,
+        country: PropTypes.string,
+    }).isRequired,
+    forecasts: PropTypes.array.isRequired,
+}
 export default App;
 

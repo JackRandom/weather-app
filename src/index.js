@@ -1,9 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import App from './App';
-// import { location, forecasts } from './data/forecast.json';
+import { location, forecasts } from './data/forecast.json';
 
-render(<App  />, document.getElementById('root'));
+render(<App location={location} forecasts={forecasts} />, document.getElementById('root'));
 
 
-// location={location} forecasts={forecasts} -- cut from App
